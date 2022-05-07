@@ -18,7 +18,6 @@ int Checkstate::checkApogee()
 {
     if (velocity < 0)
     {
-        // eject parachute
         MAX_ALTITUDE = altitude;
         return 2;
     }

@@ -1,10 +1,9 @@
+#include <Arduino.h>
 #include "Checkstate.h"
-
-#define BAUD_RATE 115200
 
 void setup()
 {
-    Serial.begin(BAUD_RATE);
+    Serial.begin(115200);
     Serial.println("Board is online");
     Checkstate state(100.0, 40.0, 15.0);
     int currentstate = state.checkState();
