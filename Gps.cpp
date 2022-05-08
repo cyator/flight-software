@@ -3,7 +3,6 @@
 Gps::Gps(SoftwareSerial *GPSModule)
 {
     this->GPSModule = GPSModule;
-    GPSModule->begin(9600);
 }
 
 // getters
@@ -16,6 +15,11 @@ float Gps::getLongitude()
 float Gps::getLatitude()
 {
     return latitude;
+}
+
+void Gps::begin(uint32_t baud)
+{
+    GPSModule->begin(baud);
 }
 
 String Gps::ConvertLat(String nmea[15])

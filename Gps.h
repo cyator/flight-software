@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
-#include <TinyGPS++.h>
 
 class Gps
 {
@@ -17,6 +16,7 @@ public:
     Gps(SoftwareSerial *GPSModule);
     float getLongitude();
     float getLatitude();
+    void begin(uint32_t baud);
     void get_gps_readings();
     String ConvertLat(String nmea[15]);
     String ConvertLng(String nmea[15]);
