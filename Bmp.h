@@ -3,19 +3,17 @@
 
 #include <Arduino.h>
 #include <Adafruit_BMP085.h>
-// #include <Adafruit_Sensor.h>
-
 class Bmp
 {
-
 private:
     Adafruit_BMP085 bmp;
-    int SHORT_DELAY;
-    int SEA_LEVEL_PRESSURE;
+    float SEA_LEVEL_PRESSURE;
     float altitude;
 
 public:
-    Bmp(int SHORT_DELAY, int SEA_LEVEL_PRESSURE);
+    Bmp();
+    Bmp(float SEA_LEVEL_PRESSURE);
+    void begin();
     float getAltitude();
     void get_readings();
 };

@@ -1,22 +1,24 @@
 #include "Bmp.h"
 
-Bmp::Bmp(int SHORT_DELAY, int SEA_LEVEL_PRESSURE)
+Bmp::Bmp()
 {
-    this->SHORT_DELAY = SHORT_DELAY;
+    SEA_LEVEL_PRESSURE = 102400;
+}
+
+Bmp::Bmp(float SEA_LEVEL_PRESSURE)
+{
     this->SEA_LEVEL_PRESSURE = SEA_LEVEL_PRESSURE;
+}
 
-    // debugln("BMP180 INITIALIZATION");
-
+void Bmp::begin()
+{
     if (!bmp.begin())
     {
-        // debugln("Could not find a valid BMP085 sensor, check wiring!");
+        Serial.println("Could not find a valid BMP085 sensor, check wiring!");
         while (1)
         {
-            delay(SHORT_DELAY);
         }
     }
-
-    // debugln("BMP180 FOUND");
 }
 
 float Bmp::getAltitude()
@@ -26,5 +28,5 @@ float Bmp::getAltitude()
 
 void Bmp::get_readings()
 {
-    altitude = bmp.readAltitude(SEA_LEVEL_PRESSURE);
+    altitude = bmp.readAltitude();
 }
