@@ -3,13 +3,12 @@
 
 #include <Arduino.h>
 #include <Adafruit_MPU6050.h>
-// #include <Adafruit_Sensor.h>
+
 class Mpu
 {
 
 private:
     Adafruit_MPU6050 mpu;
-    int SHORT_DELAY;
     float ax;
     float ay;
     float az;
@@ -25,6 +24,7 @@ public:
     float getGx();
     float getGy();
     float getGz();
+    void begin();
     void get_readings();
 };
 
