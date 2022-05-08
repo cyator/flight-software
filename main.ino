@@ -1,5 +1,17 @@
+// global
 #include <Arduino.h>
+#include <SoftwareSerial.h>
+
+// local includes
+#include "Gps.h"
 #include "Checkstate.h"
+
+const uint8_t GPS_TX_PIN = 17;
+const uint8_t GPS_RX_PIN = 16;
+
+// gps
+SoftwareSerial GPSModule(GPS_RX_PIN, GPS_TX_PIN);
+Gps gps(&GPSModule);
 
 void setup()
 {

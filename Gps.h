@@ -9,13 +9,12 @@ class Gps
 {
 
 private:
-    uint8_t GPS_TX_PIN;
-    uint8_t GPS_RX_PIN;
+    SoftwareSerial *GPSModule;
     float latitude;
     float longitude;
 
 public:
-    Gps(uint8_t GPS_TX_PIN, uint8_t GPS_RX_PIN);
+    Gps(SoftwareSerial *GPSModule);
     float getLongitude();
     float getLatitude();
     void get_gps_readings();

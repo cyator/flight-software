@@ -1,12 +1,9 @@
 #include "Gps.h"
 
-Gps::Gps(uint8_t GPS_TX_PIN, uint8_t GPS_RX_PIN)
+Gps::Gps(SoftwareSerial *GPSModule)
 {
-    this->GPS_TX_PIN = GPS_TX_PIN;
-    this->GPS_RX_PIN = GPS_RX_PIN;
-    // using uart 2 for serial communication
-    SoftwareSerial GPSModule(GPS_RX_PIN, GPS_TX_PIN); // RX, TX
-    GPSModule.begin(9600);
+    this->GPSModule = GPSModule;
+    GPSModule->begin(9600);
 }
 
 // getters
@@ -90,15 +87,14 @@ void Gps::get_gps_readings()
     String nmea[15];
     int stringplace = 0;
     int pos = 0;
-    SoftwareSerial GPSModule(GPS_RX_PIN, GPS_TX_PIN); // RX, TX
-    GPSModule.flush();
-    while (GPSModule.available() > 0)
+    GPSModule->flush();
+    while (GPSModule->available() > 0)
     {
-        GPSModule.read();
+        GPSModule->read();
     }
-    if (GPSModule.find("$GPRMC,"))
+    if (GPSModule->find("$GPRMC,"))
     {
-        String tempMsg = GPSModule.readStringUntil('\n');
+        String tempMsg = GPSModule->readStringUntil('\n');
         for (int i = 0; i < tempMsg.length(); i++)
         {
             if (tempMsg.substring(i, i + 1) == ",")
