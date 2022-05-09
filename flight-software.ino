@@ -1,6 +1,5 @@
-// global
+//global includes
 #include <Arduino.h>
-// #include <SoftwareSerial.h>
 
 // local includes
 // #include "Gps.h"
