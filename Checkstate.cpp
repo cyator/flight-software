@@ -1,21 +1,33 @@
 #include "CheckState.h"
 
 // constructor
-Checkstate::Checkstate(float altitude, float velocity, float BASE_ALTITUDE)
+Checkstate::Checkstate()
 {
-    this->altitude = altitude;
-    this->velocity = velocity;
-    this->BASE_ALTITUDE = BASE_ALTITUDE;
+    state = 0;
+}
+
+void Checkstate::calculateBaseAltitude()
+{
+    BASE_ALTITUDE = 0;
 }
 
 int Checkstate::checkInflight()
 {
-    displacement = altitude - BASE_ALTITUDE;
-    displacement > 20 ? 1 : 0;
+    calculateBaseAltitude();
+    float displacement = altitude - BASE_ALTITUDE;
+    if (displacement > 20)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 int Checkstate::checkApogee()
 {
+
     if (velocity < 0)
     {
         MAX_ALTITUDE = altitude;
@@ -29,18 +41,36 @@ int Checkstate::checkApogee()
 
 int Checkstate::checkDescent()
 {
-    displacement = altitude - MAX_ALTITUDE;
-    displacement < 20 ? 3 : 2;
+    float displacement = altitude - MAX_ALTITUDE;
+    if (displacement < 20)
+    {
+        return 3;
+    }
+    else
+    {
+        return 2;
+    }
 }
 
 int Checkstate::checkGround()
 {
-    displacement = altitude - BASE_ALTITUDE;
-    ((displacement > 20) || (displacement < 20)) ? 4 : 3;
+    float displacement = altitude - BASE_ALTITUDE;
+    if (displacement < 20)
+    {
+        return 4;
+    }
+    else
+    {
+        return 3;
+    }
 }
 
-int Checkstate::checkState()
+int Checkstate::checkstate(float altitude, float velocity)
 {
+
+    this->altitude = altitude;
+    this->velocity = velocity;
+
     switch (state)
     {
     case 0:
@@ -56,7 +86,7 @@ int Checkstate::checkState()
         state = checkGround();
         break;
     default:
-        return state;
+        break;
     }
     return state;
 }

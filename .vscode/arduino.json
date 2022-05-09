@@ -1,7 +1,7 @@
 {
     "sketch": "flight-software.ino",
     "output": "build",
-    "configuration": "PartitionScheme=default,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
-    "board": "esp32:esp32:node32s",
-    "port": "COM7"
+    "configuration": "FlashFreq=80,PartitionScheme=default,CPUFreq=240,UploadSpeed=921600",
+    "board": "esp32:esp32:lolin32",
+    "port": "COM3"
 }

@@ -5,22 +5,21 @@
 
 class Checkstate
 {
-
 private:
-    int state = 0;
-    float altitude;
-    float velocity;
-    float displacement;
+    int state;
     float BASE_ALTITUDE;
     float MAX_ALTITUDE;
-
-public:
-    Checkstate(float altitude, float velocity, float BASE_ALTITUDE);
+    float altitude;
+    float velocity;
     int checkInflight();
     int checkApogee();
     int checkDescent();
     int checkGround();
-    int checkState();
+    void calculateBaseAltitude();
+
+public:
+    Checkstate();
+    int checkstate(float altitude, float velocity);
 };
 
 #endif
