@@ -1,19 +1,36 @@
 #include "CheckState.h"
 
 // constructor
-Checkstate::Checkstate()
+Checkstate::Checkstate(Bmp *bmp)
 {
+    this->bmp = bmp;
     state = 0;
 }
 
-void Checkstate::calculateBaseAltitude()
+void Checkstate::calculateBaseAltitude(int loopCount)
 {
-    BASE_ALTITUDE = 0;
+    
+        float sum = 0;
+        
+        for (int i = 0; i < loopCount; i++)
+        {
+            bmp->get_readings();
+            
+            sum += bmp->getAltitude();
+
+            //TODO: why must we delay here?
+        }
+        float average  = sum / loopCount;
+  
+        delay(5000);
+
+        BASE_ALTITUDE = average;
+    
 }
 
 int Checkstate::checkInflight()
 {
-    calculateBaseAltitude();
+    calculateBaseAltitude(10);
     float displacement = altitude - BASE_ALTITUDE;
     if (displacement > 20)
     {

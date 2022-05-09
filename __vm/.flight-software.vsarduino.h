@@ -108,6 +108,5 @@ typedef long pthread_cond_t;
 // Write Value to Register
 #define WRITE_PERI_REG(addr,val)
 #include "flight-software.ino"
-#include "test.ino"
 #endif
 #endif

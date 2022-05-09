@@ -17,14 +17,14 @@ int n = 0;
 // SoftwareSerial GPSModule(GPS_RX_PIN, GPS_TX_PIN);
 // Gps gps(&GPSModule);
 
-// bmp init
-// Bmp bmp;
+//bmp init
+Bmp bmp;
 
 // mpu init
 // Mpu mpu;
 
 // checkstate init
-Checkstate checkstate;
+Checkstate checkstate(&bmp);
 
 void setup()
 {
