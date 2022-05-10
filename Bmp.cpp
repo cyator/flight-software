@@ -26,6 +26,26 @@ float Bmp::getAltitude()
     return altitude;
 }
 
+float Bmp::getBaseAltitude()
+{
+    return BASE_ALTITUDE;
+}
+
+void Bmp::calculateBaseAltitude(int loopCount)
+{
+
+    float sum = 0;
+
+    for (int i = 0; i < loopCount; i++)
+    {
+        get_readings();
+        sum += getAltitude();
+    }
+    float average = sum / loopCount;
+    BASE_ALTITUDE = average;
+}
+
+
 void Bmp::get_readings()
 {
     altitude = bmp.readAltitude();

@@ -31,8 +31,8 @@ void setup()
     Serial.begin(115200);
     // gps.begin(9600);
 
-    // bmp.begin();
-    // mpu.begin();
+    bmp.begin();
+    //mpu.begin();
 }
 
 void loop()
@@ -43,9 +43,10 @@ void loop()
     // float longitude = gps.getLongitude();
     // Serial.printf("latitude %.3f\n", latitude);
     // Serial.printf("longitude %.3f\n", longitude);
-    // bmp.get_readings();
-    // float altutude = bmp.getAltitude();
-    // Serial.printf("altitude %.3f\n", altutude);
+    
+    bmp.get_readings();
+    //float altutude = bmp.getAltitude();
+   // Serial.printf("altitude %.3f\n", altutude);
 
     // mpu.get_readings();
     // float ax = mpu.getAx();
@@ -56,13 +57,13 @@ void loop()
     // float gz = mpu.getGz();
     // Serial.printf("ax %.3f,ay %.3f,az %.3f,gx %.3f,gy %.3f,gz %.3f,\n", ax, ay, az, gx, gy, gz);
 
-    float altitude = 100 * sin(n * (PI / 180));
+    float altitude = (100 * sin(n * (PI / 180)))+ bmp.getAltitude();
     float velocity = 40 * cos(n * (PI / 180));
     if (n <= 180)
     {
         n++;
     }
-
+    Serial.printf("Base altitude %.3f\n", bmp.getBaseAltitude());
     Serial.printf("velocity is %.3f and altitude %.3f\n", velocity, altitude);
 
     int currentstate = checkstate.checkstate(altitude, velocity);

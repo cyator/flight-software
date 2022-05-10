@@ -7,31 +7,9 @@ Checkstate::Checkstate(Bmp *bmp)
     state = 0;
 }
 
-void Checkstate::calculateBaseAltitude(int loopCount)
-{
-    
-        float sum = 0;
-        
-        for (int i = 0; i < loopCount; i++)
-        {
-            bmp->get_readings();
-            
-            sum += bmp->getAltitude();
-
-            //TODO: why must we delay here?
-        }
-        float average  = sum / loopCount;
-  
-        delay(5000);
-
-        BASE_ALTITUDE = average;
-    
-}
-
 int Checkstate::checkInflight()
 {
-    calculateBaseAltitude(10);
-    float displacement = altitude - BASE_ALTITUDE;
+    float displacement = altitude - bmp->getBaseAltitude();
     if (displacement > 20)
     {
         return 1;
@@ -71,7 +49,7 @@ int Checkstate::checkDescent()
 
 int Checkstate::checkGround()
 {
-    float displacement = altitude - BASE_ALTITUDE;
+    float displacement = altitude - bmp->getBaseAltitude();
     if (displacement < 20)
     {
         return 4;
@@ -91,6 +69,7 @@ int Checkstate::checkstate(float altitude, float velocity)
     switch (state)
     {
     case 0:
+        bmp->calculateBaseAltitude(10);
         state = checkInflight();
         break;
     case 1:
